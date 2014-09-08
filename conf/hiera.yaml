@@ -1,0 +1,7 @@
+---
+:backends: json
+
+:json:
+  :datadir: "%{settings::confdir}/hiera"
+
+:hierarchy: otium360

@@ -1,0 +1,31 @@
+{
+  "classes" : [ "devenv" ],
+
+
+  "devenv::user"       : "otium360",
+  "devenv::home"       : "/home/%{hiera('devenv::user')}",
+  "devenv::development": "%{hiera('devenv::home')}/development",
+  "devenv::downloads"  : "%{hiera('devenv::home')}/Downloads",
+  "devenv::company"    : "otium360",
+
+
+  "devenv::git::user_email"     : "otium360@%{hiera('devenv::company')}.com",
+  "devenv::git::user_name"      : "otium360",
+  "devenv::git::core_editor"    : "vim",
+  "devenv::git::home"           : "%{hiera('devenv::home')}/git",
+  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",
+  "devenv::git::github_ssh_keys": false,
+  "devenv::git::github_ssh_pswd": "s3cr3t",
+
+
+  "devenv::android::version"          : "r23.0.2-linux",
+  "devenv::java::oracle_java7"        : true,
+  "devenv::java::oracle_java8"        : true,
+  "devenv::maven::version"            : "3.2.3",
+  "devenv::mongodb::robomongo_version": "0.8.3-x86_64",
+  "devenv::nodejs::version"           : "v0.10.31",
+  "devenv::sts::version"              : "3.6.1.RELEASE",
+  "devenv::vagrant::version"          : "1.6.3_x86_64",
+  "devenv::virtualbox::version"       : "4.3"
+
+}
