@@ -18,7 +18,7 @@ Tested on:
         git clone https://github.com/balder-otium360/devenv.git
   * change into your devenv cloned repo
 
-        cd ~/git/devenv`)
+        cd ~/git/devenv
   * edit `conf/hiera/otium360.json` to fulfill your needs (user account, email, ecc)
   * run the Puppet install script that will install Puppet and required modules:
 
