@@ -5,7 +5,7 @@ Puppet module that sets up the standard otium360 developoment environment.
 
 ## Required Software
 
-The only requirement is a Linux box with internet connection, otium360-devenv will download and install all required software.
+The only requirement is a Linux Ubuntu/Debian box with internet connection, __otium360 devenv__ will download and install all required software.
 
 Tested on:
 
@@ -26,18 +26,18 @@ Tested on:
   * run the Puppet apply script:
 
         ./puppet-apply.sh
-  otium360-devenv will download all the software from the internet, so the whole process may take about 90 minutes with a 10Mbps DSL.
+  __otium360 devenv__ will download all the software from the internet, so the whole process may take about 90 minutes with a 10Mbps DSL.
 
 ## Included Software
 
-otium360-devenv will install the following software on your machine:
+__otium360 devenv__ will install the following software on your machine:
 
   * Android SDK
   * Compass
   * Git, Git-Flow and optional GitHub SSH setup
-  * Oracle Java JDK 7 and Oracle Java JDK 8 (JDK 7 will be set as default)
+  * Oracle JDK 7 and Oracle JDK 8 (JDK 7 will be set as default)
   * Apache Maven
-  * MongoDB
+  * MongoDB + Robomongo
   * nginx
   * NodeJS + global modules
     - Grunt
