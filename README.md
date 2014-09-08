@@ -95,24 +95,29 @@ All current customization is done via Hiera datasources, so it's centralized in 
 
 ### Version management
 
-otium360 uses really simple patterns to build the package name or donwload URL:
+devenv uses really simple patterns to build the package name or donwload URL. Assuming `$version` is defined in Hiera, the following example shows Maven package and download URL.
 
     $file = "apache-maven-${version}"
     $tgz  = "${file}-bin.tar.gz"
     $url  = "http://ftp.cixug.es/apache/maven/maven-3/${version}/binaries/${tgz}"
 
-In most cases it will be enough to tweak the `conf/hiera/otium360.json` Hiera datasource to change the `$version`, but sometimes you might need to adjust some other values in the associated Puppet file `modules/devenv/manifests/maven.pp`. Eg:
+In most cases it will be enough to tweak the `conf/hiera/otium360.json` Hiera datasource to change the `devenv::maven::version`, but sometimes you might need to adjust some other values in the associated Puppet file. For example, following the previous Maven example `modules/devenv/manifests/maven.pp`:
 
-    $file = "apache-maven-${version}-linux_x64"
-    $tgz  = "${file}-bin.tar.gz"
-    $url  = "http://newmavenserver/apache/maven/maven-3/${version}/binaries/${tgz}"
+    $file = "apache-maven-${version}-mymavensuffix"
+    $tgz  = "${file}-myreleasebin.tar.gz"
+    $url  = "http://mymavenserver/apache/maven/maven-3/${version}/binaries/${tgz}"
 
 
 ## Vagrant
 
-TODO
+devenv includes a `Vagrantfile` so you can test all Puppet recipes in a virtual envirionment. The Vagrantfile is ready to use, it will automatically update Puppet to the latest version and will apply the `default.pp` Puppet manifest. To init and provision the Vagrant box use:
+
+    vagrant up
+    
+Beware that the Vagrant provisioning will install the full development environment by default, so it can take a while.
+
+If you have already downloaded the required packages on your host, you can create a `Downloads` folder inside the project and check the `Vagrantfile` to use this folder as a file provisioning.
 
 ## Known issues
 
 Some of the packages (Sublime Text 3, Google Chrome) require a graphic environment and will throw an error in a headless VM while using default Vagrant setup.
-
