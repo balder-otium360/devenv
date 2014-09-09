@@ -40,7 +40,7 @@ __otium360 devenv__ will install the following software on your machine:
   * Java
     - Oracle JDK 7 (will be set as default)
     - Oracle JDK 8
-  * Apache Maven
+  * Maven
   * MongoDB + Robomongo
   * nginx
   * NodeJS + global modules
@@ -49,8 +49,8 @@ __otium360 devenv__ will install the following software on your machine:
     - Yeoman
   * Ruby
   * Spring Tool Suite (no tc-server, no Roo)
-  * Virtual Box
   * Vagrant
+  * Virtual Box
   * utils
     - Chrome
     - Dropbox
