@@ -34,8 +34,12 @@ __otium360 devenv__ will install the following software on your machine:
 
   * Android SDK
   * Compass
-  * Git, Git-Flow and optional GitHub SSH setup
-  * Oracle JDK 7 and Oracle JDK 8 (JDK 7 will be set as default)
+  * Git
+    - Git-Flow
+    - optional GitHub SSH setup
+  * Java
+    - Oracle JDK 7 (will be set as default)
+    - Oracle JDK 8
   * Apache Maven
   * MongoDB + Robomongo
   * nginx
@@ -95,7 +99,7 @@ All current customization is done via Hiera datasources, so it's centralized in 
 
 ### Version management
 
-devenv uses really simple patterns to build the package name or donwload URL. Assuming `$version` is defined in Hiera, the following example shows Maven package and download URL.
+__otium360 devenv__ uses really simple patterns to build the package name or donwload URL. Assuming `$version` is defined in Hiera, the following example shows Maven package name and download URL variables.
 
     $file = "apache-maven-${version}"
     $tgz  = "${file}-bin.tar.gz"
@@ -113,7 +117,7 @@ In most cases it will be enough to tweak the `conf/hiera/otium360.json` Hiera da
 devenv includes a `Vagrantfile` so you can test all Puppet recipes in a virtual envirionment. The Vagrantfile is ready to use, it will automatically update Puppet to the latest version and will apply the `default.pp` Puppet manifest. To init and provision the Vagrant box use:
 
     vagrant up
-    
+
 Beware that the Vagrant provisioning will install the full development environment by default, so it can take a while.
 
 If you have already downloaded the required packages on your host, you can create a `Downloads` folder inside the project and check the `Vagrantfile` to use this folder as a file provisioning.
