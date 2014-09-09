@@ -1,5 +1,9 @@
 [user]
-    email = <%= scope['devenv::git::user_email'] %>
-    name = <%= scope['devenv::git::user_name'] %>
+        email = <%= scope['devenv::git::user_email'] %>
+        name = <%= scope['devenv::git::user_name'] %>
 [core]
-    editor = <%= scope['devenv::git::core_editor'] %>
+        editor = <%= scope['devenv::git::core_editor'] %>
+[push]
+        default = simple
+[credential]
+        helper = cache --timeout=3600
