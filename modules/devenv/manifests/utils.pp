@@ -11,41 +11,46 @@ class devenv::utils (
 
   if $chrome {
     package { ['google-chrome-stable', 'google-talkplugin']:
-      ensure  => latest
+      ensure  => latest,
     }
   }
 
   if $dropbox {
     package { 'dropbox' :
-      ensure  => latest
+      ensure  => latest,
     }
   }
 
   if $vim {
     package { 'vim' :
-      ensure  => latest
+      ensure  => latest,
     }
   }
 
   if $sublime_text {
     package { 'sublime-text-installer' :
-      ensure => latest
+      ensure => latest,
     }
   }
 
   if $yakuake {
     package { 'yakuake' :
-      ensure  => latest
+      ensure  => latest,
     }
   }
 
   if $puppet_lint {
-    devenv::gem { 'puppet-lint' : }
+    include devenv::ruby
+
+    package { 'puppet-lint' :
+      ensure   => latest,
+      provider => gem,
+    }
   }
 
   if $unrar {
     package { 'unrar' :
-      ensure  => latest
+      ensure  => latest,
     }
   }
 

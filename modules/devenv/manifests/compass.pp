@@ -2,6 +2,9 @@
 class devenv::compass {
   include devenv::ruby
 
-  devenv::gem { 'compass' : }
+  package { 'compass' :
+      ensure   => latest,
+      provider => gem,
+    }
 
 }
