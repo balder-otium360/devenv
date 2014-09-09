@@ -8,7 +8,21 @@ class devenv(
   $home,
   $development,
   $downloads,
-  $company
+  $company,
+  $android,
+  $compass,
+  $docker,
+  $git,
+  $java,
+  $maven,
+  $mongodb,
+  $nginx,
+  $nodejs,
+  $ruby,
+  $sts,
+  $utils,
+  $vagrant,
+  $virtualbox,
 ) {
 
   if $::operatingsystem != 'Ubuntu' {
@@ -40,6 +54,25 @@ class devenv(
   notice(" *              Company = ${company}                                ")
   notice(' *****************************************************************  ')
   notice('                                                                    ')
+  notice(' *****************************************************************  ')
+  notice(' *        otium360 devenv Installed Software                     *  ')
+  notice(' *****************************************************************  ')
+  notice(" *          Android SDK = ${android}                                ")
+  notice(" *              Compass = ${compass}                                ")
+  notice(" *               Docker = ${docker}                                 ")
+  notice(" *         Git (+tools) = ${git}                                    ")
+  notice(" *                 Java = ${java}                                   ")
+  notice(" *                Maven = ${maven}                                  ")
+  notice(" *     MongoDB (+tools) = ${mongodb}                                ")
+  notice(" *                nginx = ${nginx}                                  ")
+  notice(" *    NodeJS (+modules) = ${nodejs}                                 ")
+  notice(" *                 Ruby = ${ruby}                                   ")
+  notice(" *    Spring Tool Suite = ${sts}                                    ")
+  notice(" *                utils = ${utils}                                  ")
+  notice(" *              Vagrant = ${vagrant}                                ")
+  notice(" *          Virtual Box = ${virtualbox}                             ")
+  notice(' *****************************************************************  ')
+  notice('                                                                    ')
 
   stage { 'preconfigure' :
     before => Stage['main']
@@ -53,18 +86,47 @@ class devenv(
     stage => preconfigure
   }
 
-  include devenv::android
-  include devenv::compass
-  include devenv::git
-  include devenv::java
-  include devenv::maven
-  include devenv::mongodb
-  include devenv::nginx
-  include devenv::nodejs
-  include devenv::ruby
-  include devenv::sts
-  include devenv::utils
-  include devenv::virtualbox
-  include devenv::vagrant
+  if $android {
+    include devenv::android
+  }
+  if $compass {
+    include devenv::compass
+  }
+  if $docker {
+    include devenv::docker
+  }
+  if $git {
+    include devenv::git
+  }
+  if $java {
+    include devenv::java
+  }
+  if $maven {
+    include devenv::maven
+  }
+  if $mongodb {
+    include devenv::mongodb
+  }
+  if $nginx {
+    include devenv::nginx
+  }
+  if $nodejs {
+    include devenv::nodejs
+  }
+  if $ruby {
+    include devenv::ruby
+  }
+  if $sts {
+    include devenv::sts
+  }
+  if $utils {
+    include devenv::utils
+  }
+  if $vagrant {
+    include devenv::vagrant
+  }
+  if $virtualbox {
+    include devenv::virtualbox
+  }
 
 }

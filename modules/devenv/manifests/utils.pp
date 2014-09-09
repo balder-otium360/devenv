@@ -1,12 +1,12 @@
 # Install utilities
 class devenv::utils (
-  $chrome       = false,
-  $dropbox      = false,
-  $vim          = true,
-  $yakuake      = false,
-  $puppet_lint  = false,
-  $sublime_text = false,
-  $unrar        = false
+  $chrome,
+  $dropbox,
+  $vim,
+  $yakuake,
+  $puppet_lint,
+  $sublime_text,
+  $unrar,
   ) {
 
   if $chrome {
