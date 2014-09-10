@@ -71,4 +71,15 @@ class devenv::aptsources {
     include_src => false,
   }
 
+  apt::key { 'docker' :
+    key        => 'A88D21E9',
+    key_server => 'keyserver.ubuntu.com',
+  }
+  apt::source { 'docker' :
+    location    => 'https://get.docker.io/ubuntu',
+    release     => 'docker',
+    repos       => 'main',
+    include_src => false,
+  }
+
 }

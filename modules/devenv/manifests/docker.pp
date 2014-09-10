@@ -1,17 +1,12 @@
 # Install Docker
 class devenv::docker {
 
-  package { 'docker.io' :
+  package { 'lxc-docker' :
     ensure  => latest,
   }
 
-  file { 'link docker' :
-    ensure  => link,
-    path    => '/usr/local/bin/docker',
-    target  => '/usr/bin/docker.io',
-    owner   => root,
-    group   => root,
-    require => Package['docker.io'],
+  exec { "usermod -a -G docker ${devenv::user}" :
+    require => Package['lxc-docker'],
   }
 
 }
