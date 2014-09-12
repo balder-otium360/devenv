@@ -3,7 +3,16 @@
 Puppet module that sets up the standard otium360 developoment environment.
 
 
-## Required Software
+## Overview
+* [Software Requirements](#software-requirements)
+* [Basic usage](#basic-usage)
+* [Included Software](#included-software)
+* [Customization](#customization)
+* [Vagrant](#vagrant)
+* [Known issues](#known-issues)
+
+
+## Software Requirements
 
 The only requirement is a Linux Ubuntu/Debian box with internet connection, __otium360 devenv__ will download and install all required software.
 
@@ -11,12 +20,14 @@ Tested on:
 
   * Ubuntu Trusty 14.04
 
-## Quick Usage
+## Basic usage
 
-  * clone this repo
+  * clone or [dowload](https://github.com/balder-otium360/devenv/archive/master.zip) this repo
 
         git clone https://github.com/balder-otium360/devenv.git
-  * change into your devenv cloned repo
+        # or
+        wget https://github.com/balder-otium360/devenv/archive/master.zip
+  * change into your devenv repo (we'll assume you have your local copy at `~/git/devenv`)
 
         cd ~/git/devenv
   * edit `conf/hiera/otium360.json` to fulfill your needs (user account, email, ecc)
@@ -67,23 +78,38 @@ All current customization is done via Hiera datasources, so it's centralized in 
 {
   "classes" : [ "devenv" ],
 
+  "devenv::user"        : "otium", // change this to your linux user
+  "devenv::home"        : "/home/%{hiera('devenv::user')}",
+  "devenv::development" : "%{hiera('devenv::home')}/development",
+  "devenv::downloads"   : "%{hiera('devenv::home')}/Downloads",
+  "devenv::company"     : "otium360", // change this to your company
 
-  "devenv::user"       : "otium360",
-  "devenv::home"       : "/home/%{hiera('devenv::user')}",
-  "devenv::development": "%{hiera('devenv::home')}/development",
-  "devenv::downloads"  : "%{hiera('devenv::home')}/Downloads",
-  "devenv::company"    : "otium360",
+  // change installed software
+  //   true: install, false: skip install
+  "devenv::android"  : true,
+  "devenv::compass"  : true,
+  "devenv::docker"   : true,
+  "devenv::git"      : true,
+  "devenv::java"     : true,
+  "devenv::maven"    : true,
+  "devenv::mongodb"  : true,
+  "devenv::nginx"    : true,
+  "devenv::nodejs"   : true,
+  "devenv::ruby"     : true,
+  "devenv::sts"      : true,
+  "devenv::utils"    : true,
+  "devenv::utils::chrome"       : false,
+  "devenv::utils::dropbox"      : false,
+  "devenv::utils::vim"          : true,
+  "devenv::utils::yakuake"      : false,
+  "devenv::utils::puppet_lint"  : false,
+  "devenv::utils::sublime_text" : true,
+  "devenv::utils::unrar"        : false,
+  "devenv::vagrant"   : true,
+  "devenv::virtualbox": true,
 
-
-  "devenv::git::user_email"     : "otium360@otium360.com",
-  "devenv::git::user_name"      : "otium360",
-  "devenv::git::core_editor"    : "vim",
-  "devenv::git::home"           : "%{hiera('devenv::home')}/git",
-  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",
-  "devenv::git::github_ssh_keys": false,
-  "devenv::git::github_ssh_pswd": "s3cr3t",
-
-
+  // change software versions
+  // you might need to tweek file names or download URLs in each class' Puppet (eg. modules/devenv/android.pp)
   "devenv::android::version"          : "r23.0.2-linux",
   "devenv::java::oracle_java7"        : true,
   "devenv::java::oracle_java8"        : true,
@@ -92,8 +118,15 @@ All current customization is done via Hiera datasources, so it's centralized in 
   "devenv::nodejs::version"           : "v0.10.31",
   "devenv::sts::version"              : "3.6.1.RELEASE",
   "devenv::vagrant::version"          : "1.6.3_x86_64",
-  "devenv::virtualbox::version"       : "4.3"
+  "devenv::virtualbox::version"       : "4.3",
 
+  "devenv::git::user_email"     : "otium@%{hiera('devenv::company')}.com", // change Git email
+  "devenv::git::user_name"      : "Otium", // change Git name
+  "devenv::git::core_editor"    : "vim",  // change Git core editor
+  "devenv::git::home"           : "%{hiera('devenv::home')}/git",
+  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",// change GitHub user
+  "devenv::git::github_ssh_keys": false,
+  "devenv::git::github_ssh_pswd": "s3cr3t" // change GitHub password
 }
 ```
 

@@ -1,28 +1,38 @@
 {
   "classes" : [ "devenv" ],
 
-
-  "devenv::user"        : "balder",
+  "devenv::user"        : "otium", // change this to your linux user
   "devenv::home"        : "/home/%{hiera('devenv::user')}",
   "devenv::development" : "%{hiera('devenv::home')}/development",
   "devenv::downloads"   : "%{hiera('devenv::home')}/Downloads",
-  "devenv::company"     : "otium360",
+  "devenv::company"     : "otium360", // change this to your company
 
-  "devenv::android"   : true,
-  "devenv::compass"   : true,
-  "devenv::docker"    : true,
-  "devenv::git"       : true,
-  "devenv::java"      : true,
-  "devenv::maven"     : true,
-  "devenv::mongodb"   : true,
-  "devenv::nginx"     : true,
-  "devenv::nodejs"    : true,
-  "devenv::ruby"      : true,
-  "devenv::sts"       : true,
-  "devenv::utils"     : true,
+  // change installed software
+  //   true: install, false: skip install
+  "devenv::android"  : true,
+  "devenv::compass"  : true,
+  "devenv::docker"   : true,
+  "devenv::git"      : true,
+  "devenv::java"     : true,
+  "devenv::maven"    : true,
+  "devenv::mongodb"  : true,
+  "devenv::nginx"    : true,
+  "devenv::nodejs"   : true,
+  "devenv::ruby"     : true,
+  "devenv::sts"      : true,
+  "devenv::utils"    : true,
+  "devenv::utils::chrome"       : false,
+  "devenv::utils::dropbox"      : false,
+  "devenv::utils::vim"          : true,
+  "devenv::utils::yakuake"      : false,
+  "devenv::utils::puppet_lint"  : false,
+  "devenv::utils::sublime_text" : true,
+  "devenv::utils::unrar"        : false,
   "devenv::vagrant"   : true,
   "devenv::virtualbox": true,
 
+  // change software versions
+  // you might need to tweek file names or download URLs in each class' Puppet (eg. modules/devenv/android.pp)
   "devenv::android::version"          : "r23.0.2-linux",
   "devenv::java::oracle_java7"        : true,
   "devenv::java::oracle_java8"        : true,
@@ -33,20 +43,11 @@
   "devenv::vagrant::version"          : "1.6.3_x86_64",
   "devenv::virtualbox::version"       : "4.3",
 
-  "devenv::utils::chrome"       : false,
-  "devenv::utils::dropbox"      : false,
-  "devenv::utils::vim"          : true,
-  "devenv::utils::yakuake"      : false,
-  "devenv::utils::puppet_lint"  : false,
-  "devenv::utils::sublime_text" : false,
-  "devenv::utils::unrar"        : false,
-
-  "devenv::git::user_email"     : "balder.carrate@%{hiera('devenv::company')}.com",
-  "devenv::git::user_name"      : "Bálder Carraté",
-  "devenv::git::core_editor"    : "vim",
+  "devenv::git::user_email"     : "otium@%{hiera('devenv::company')}.com", // change Git email
+  "devenv::git::user_name"      : "Otium", // change Git name
+  "devenv::git::core_editor"    : "vim",  // change Git core editor
   "devenv::git::home"           : "%{hiera('devenv::home')}/git",
-  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",
+  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",// change GitHub user
   "devenv::git::github_ssh_keys": false,
-  "devenv::git::github_ssh_pswd": "s3cr3t"
-
+  "devenv::git::github_ssh_pswd": "s3cr3t" // change GitHub password
 }
