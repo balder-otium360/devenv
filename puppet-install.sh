@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TARGET_VERSION="3.7.0"
+TARGET_VERSION="3.7.1"
 CURRENT_VERSION=`puppet --version`
 echo "Checking Puppet version..."
 echo "    Current: $CURRENT_VERSION"
