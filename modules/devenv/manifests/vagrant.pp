@@ -15,7 +15,7 @@ class devenv::vagrant (
   }
 
   package { 'vagrant' :
-    ensure   => installed,
+    ensure   => latest,
     provider => dpkg,
     source   => "${devenv::downloads}/${deb}",
     require  => Wget::Fetch['vagrant'],

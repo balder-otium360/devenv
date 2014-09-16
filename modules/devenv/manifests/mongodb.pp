@@ -17,7 +17,7 @@ class devenv::mongodb (
   }
 
   package { 'robomongo' :
-    ensure   => installed,
+    ensure   => latest,
     provider => dpkg,
     source   => "${devenv::downloads}/${robomongo_deb}",
     require  => Wget::Fetch['robomongo'],
