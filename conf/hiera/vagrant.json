@@ -1,14 +1,12 @@
 {
   "classes" : [ "devenv" ],
 
-  "devenv::user"        : "vagrant", // change this to your linux user
+  "devenv::user"        : "vagrant",
+  "devenv::company"     : "otium360",
   "devenv::home"        : "/home/%{hiera('devenv::user')}",
   "devenv::development" : "%{hiera('devenv::home')}/development",
   "devenv::downloads"   : "%{hiera('devenv::home')}/Downloads",
-  "devenv::company"     : "otium360", // change this to your company
 
-  // change installed software
-  //   true: install, false: skip install
   "devenv::android"  : true,
   "devenv::compass"  : true,
   "devenv::docker"   : true,
@@ -31,8 +29,6 @@
   "devenv::vagrant"   : true,
   "devenv::virtualbox": true,
 
-  // change software versions
-  // you might need to tweek file names or download URLs in each class' Puppet (eg. modules/devenv/android.pp)
   "devenv::android::version"          : "r23.0.2-linux",
   "devenv::java::oracle_java7"        : true,
   "devenv::java::oracle_java8"        : true,
@@ -40,14 +36,14 @@
   "devenv::mongodb::robomongo_version": "0.8.3-x86_64",
   "devenv::nodejs::version"           : "v0.10.31",
   "devenv::sts::version"              : "3.6.1.RELEASE",
-  "devenv::vagrant::version"          : "1.6.3_x86_64",
+  "devenv::vagrant::version"          : "1.6.5_x86_64",
   "devenv::virtualbox::version"       : "4.3",
 
-  "devenv::git::user_email"     : "vagrant@%{hiera('devenv::company')}.com", // change Git email
-  "devenv::git::user_name"      : "Vagrant", // change Git name
-  "devenv::git::core_editor"    : "vim",  // change Git core editor
+  "devenv::git::user_email"     : "vagrant@%{hiera('devenv::company')}.com",
+  "devenv::git::user_name"      : "vagrant",
+  "devenv::git::core_editor"    : "vim",
   "devenv::git::home"           : "%{hiera('devenv::home')}/git",
-  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",// change GitHub user
+  "devenv::git::github_user"    : "%{hiera('devenv::user')}-%{hiera('devenv::company')}",
   "devenv::git::github_ssh_keys": false,
-  "devenv::git::github_ssh_pswd": "s3cr3t" // change GitHub password
+  "devenv::git::github_ssh_pswd": "s3cr3t"
 }
