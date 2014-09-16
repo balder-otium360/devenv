@@ -47,6 +47,7 @@ __otium360 devenv__ will install the following software on your machine:
   * Compass
   * Git
     - Git-Flow
+    - SmartGit
     - optional GitHub SSH setup
   * Java
     - Oracle JDK 7 (will be set as default)

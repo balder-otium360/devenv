@@ -8,29 +8,31 @@ devenv::home       : "/home/%{hiera('devenv::user')}"
 devenv::development: "%{hiera('devenv::home')}/development"
 devenv::downloads  : "%{hiera('devenv::home')}/Downloads"
 
-devenv::android   : true
-devenv::compass   : true
-devenv::docker    : true
-devenv::git       : true
-devenv::java      : true
-devenv::maven     : true
-devenv::mongodb   : true
-devenv::nginx     : true
-devenv::nodejs    : true
-devenv::ruby      : true
-devenv::sts       : true
-devenv::utils     : true
-devenv::utils::chrome       : false
-devenv::utils::dropbox      : false
-devenv::utils::vim          : true
-devenv::utils::yakuake      : false
+devenv::android       : true
+devenv::compass       : true
+devenv::docker        : true
+devenv::git           : true
+devenv::git::smartgit : true
+devenv::java          : true
+devenv::maven         : true
+devenv::mongodb       : true
+devenv::nginx         : true
+devenv::nodejs        : true
+devenv::ruby          : true
+devenv::sts           : true
+devenv::utils         : true
+devenv::utils::chrome : false
+devenv::utils::dropbox: false
+devenv::utils::vim    : true
+devenv::utils::yakuake: false
 devenv::utils::puppet_lint  : false
 devenv::utils::sublime_text : true
-devenv::utils::unrar        : false
-devenv::vagrant   : true
-devenv::virtualbox: true
+devenv::utils::unrar  : false
+devenv::vagrant       : true
+devenv::virtualbox    : true
 
 devenv::android::version          : r23.0.2-linux
+devenv::git::smartgit_version     : 6_0_6
 devenv::java::oracle_java7        : true
 devenv::java::oracle_java8        : true
 devenv::maven::version            : 3.2.3

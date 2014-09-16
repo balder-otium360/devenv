@@ -1,5 +1,7 @@
 # Git SCM, plugins and GitHub SSH configuration
 class devenv::git(
+  $smartgit,
+  $smartgit_version,
   $home,
   $user_email,
   $user_name,
@@ -13,6 +15,7 @@ class devenv::git(
   notice(' *****************************************************************  ')
   notice(' *          Git Configuration                                    *  ')
   notice(' *****************************************************************  ')
+  notice(" *             SmartGit = ${smartgit}                               ")
   notice(" *         Git home dir = ${home}                                   ")
   notice(" *            Git email = ${user_email}                             ")
   notice(" *             Git name = ${user_name}                              ")
@@ -39,6 +42,25 @@ class devenv::git(
     mode    => '0644',
     owner   => $devenv::user,
     group   => $devenv::user,
+  }
+
+  if $smartgit {
+
+    $deb     = "smartgithg-${smartgit_version}.deb"
+    $url     = "http://www.syntevo.com/download/smartgithg/${deb}"
+
+    wget::fetch { 'smartgit':
+      source      => $url,
+      destination => "${devenv::downloads}/${deb}",
+      execuser    => $devenv::user,
+    }
+
+    package { 'smartgit' :
+      ensure   => latest,
+      provider => dpkg,
+      source   => "${devenv::downloads}/${deb}",
+      require  => Wget::Fetch['smartgit'],
+    }
   }
 
   if $github_ssh_keys {
