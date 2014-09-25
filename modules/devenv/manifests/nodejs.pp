@@ -44,12 +44,13 @@ class devenv::nodejs (
     require => File_Line['nodejs_home'],
   }
 
+  devenv::npm { 'bower' : }
   devenv::npm { 'grunt-cli' :
     creates => 'grunt'
   }
-
-  devenv::npm { 'bower' : }
-
+  devenv::npm { 'cordova' : }
+  devenv::npm { 'ionic' : }
+  devenv::npm { 'protractor' : }
   devenv::npm { 'yo' : }
 
 }
