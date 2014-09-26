@@ -50,7 +50,6 @@ class devenv::nodejs (
   }
   devenv::npm { 'cordova' : }
   devenv::npm { 'ionic' : }
-  devenv::npm { 'protractor' : }
   devenv::npm { 'yo' : }
 
 }
