@@ -47,22 +47,25 @@ __otium360 devenv__ will install the following software on your machine:
   * Compass
   * Git
     - Git-Flow
-    - SmartGit
+    - SmartGitHg
     - optional GitHub SSH setup
   * Java
-    - Oracle JDK 7 (will be set as default)
-    - Oracle JDK 8
+    - Oracle JDK 7
+    - Oracle JDK 8 (will be set as default)
   * Maven
   * MongoDB + Robomongo
   * nginx
   * NodeJS + global modules
-    - Grunt
     - Bower
+    - Cordova
+    - Grunt
+    - Ionic
     - Yeoman
   * Ruby
   * Spring Tool Suite (no tc-server, no Roo)
   * Vagrant
   * Virtual Box
+  * WebStorm
   * utils
     - Chrome
     - Dropbox
@@ -79,11 +82,11 @@ All current customization is done via Hiera datasources, so it's centralized in 
 {
   "classes" : [ "devenv" ],
 
-  "devenv::user"        : "otium", // change this to your linux user
+  "devenv::user"        : "otium", // change linux user
   "devenv::home"        : "/home/%{hiera('devenv::user')}",
   "devenv::development" : "%{hiera('devenv::home')}/development",
   "devenv::downloads"   : "%{hiera('devenv::home')}/Downloads",
-  "devenv::company"     : "otium360", // change this to your company
+  "devenv::company"     : "otium360", // change company
 
   // change installed software
   //   true: install, false: skip install
@@ -108,6 +111,7 @@ All current customization is done via Hiera datasources, so it's centralized in 
   "devenv::utils::unrar"        : false,
   "devenv::vagrant"   : true,
   "devenv::virtualbox": true,
+  "devenv::webstorm"  : true,
 
   // change software versions
   // you might need to tweek file names or download URLs in each class' Puppet (eg. modules/devenv/android.pp)
@@ -120,6 +124,7 @@ All current customization is done via Hiera datasources, so it's centralized in 
   "devenv::sts::version"              : "3.6.1.RELEASE",
   "devenv::vagrant::version"          : "1.6.3_x86_64",
   "devenv::virtualbox::version"       : "4.3",
+  "devenv::webstorm::version"         : "8.0.4",
 
   "devenv::git::user_email"     : "otium@%{hiera('devenv::company')}.com", // change Git email
   "devenv::git::user_name"      : "Otium", // change Git name
@@ -139,7 +144,7 @@ __otium360 devenv__ uses really simple patterns to build the package name or don
     $tgz  = "${file}-bin.tar.gz"
     $url  = "http://ftp.cixug.es/apache/maven/maven-3/${version}/binaries/${tgz}"
 
-In most cases it will be enough to tweak the `conf/hiera/otium360.json` Hiera datasource to change the `devenv::maven::version`, but sometimes you might need to adjust some other values in the associated Puppet file. For example, following the previous Maven example `modules/devenv/manifests/maven.pp`:
+In most cases it will be enough to tweak the `conf/hiera/otium360.json` Hiera datasource to change the `devenv::maven::version`, but sometimes you might need to adjust some other values in the associated Puppet file. For example, following with the previous Maven `modules/devenv/manifests/maven.pp`:
 
     $file = "apache-maven-${version}-mymavensuffix"
     $tgz  = "${file}-myreleasebin.tar.gz"
