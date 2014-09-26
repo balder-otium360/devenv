@@ -23,6 +23,7 @@ class devenv(
   $utils,
   $vagrant,
   $virtualbox,
+  $webstorm,
 ) {
 
   if $::operatingsystem != 'Ubuntu' {
@@ -71,6 +72,7 @@ class devenv(
   notice(" *                utils = ${utils}                                  ")
   notice(" *              Vagrant = ${vagrant}                                ")
   notice(" *          Virtual Box = ${virtualbox}                             ")
+  notice(" *             WebStorm = ${webstorm}                               ")
   notice(' *****************************************************************  ')
   notice('                                                                    ')
 
@@ -127,6 +129,9 @@ class devenv(
   }
   if $virtualbox {
     include devenv::virtualbox
+  }
+  if $webstorm {
+    include devenv::webstorm
   }
 
 }
