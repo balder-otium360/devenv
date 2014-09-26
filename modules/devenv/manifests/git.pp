@@ -46,20 +46,31 @@ class devenv::git(
 
   if $smartgit {
 
-    $deb     = "smartgithg-${smartgit_version}.deb"
-    $url     = "http://www.syntevo.com/download/smartgithg/${deb}"
+    $smartgithg_file = "smartgithg-${smartgit_version}"
+    $smartgithg_dir  = "${devenv::development}/${smartgithg_file}"
+    $smartgithg_tgz  = "smartgithg-generic-${smartgit_version}.tar.gz"
+    $smartgithg_url  = "http://www.syntevo.com/download/smartgithg/${smartgithg_tgz}"
 
-    wget::fetch { 'smartgit':
-      source      => $url,
-      destination => "${devenv::downloads}/${deb}",
+    wget::fetch { 'smartgithg':
+      source      => $smartgithg_url,
+      destination => "${devenv::downloads}/${smartgithg_tgz}",
       execuser    => $devenv::user,
     }
 
-    package { 'smartgit' :
-      ensure   => latest,
-      provider => dpkg,
-      source   => "${devenv::downloads}/${deb}",
-      require  => Wget::Fetch['smartgit'],
+    exec { 'untar smartgithg' :
+      command => "tar xzf ${devenv::downloads}/${smartgithg_tgz} -C ${devenv::development}",
+      user    => $devenv::user,
+      unless  => "test -d ${smartgithg_dir}",
+      require => Wget::Fetch['smartgithg'],
+    }
+
+    file { 'link smartgithg' :
+      ensure  => link,
+      path    => "${devenv::development}/smartgithg",
+      target  => $smartgithg_dir,
+      owner   => $devenv::user,
+      group   => $devenv::user,
+      require => Exec['untar smartgithg'],
     }
   }
 
