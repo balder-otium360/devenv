@@ -23,7 +23,7 @@ class devenv::sts (
   }
 
   exec { 'mv sts' :
-    command => "mv /tmp/sts-bundle/${dir} ${devenv::development}/${dir}",
+    command => "mv /tmp/sts-bundle/${dir} ${home}",
     user    => $devenv::user,
     unless  => "test -d ${home}",
     require => Exec['untar sts'],

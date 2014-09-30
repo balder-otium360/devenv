@@ -5,6 +5,7 @@ class devenv::webstorm (
 
   $file    = "WebStorm-${version}"
   $dir     = $file
+  $home    = "${devenv::development}/${dir}"
   $tgz     = "WebStorm-${version}.tar.gz"
   $url     = "http://download-cf.jetbrains.com/webstorm/${tgz}"
 
@@ -15,10 +16,26 @@ class devenv::webstorm (
   }
 
   exec { 'untar webstorm' :
-    command => "tar xzf ${devenv::downloads}/${tgz} -C ${devenv::development}",
+    command => "tar xzf ${devenv::downloads}/${tgz} -C /tmp",
     user    => $devenv::user,
-    unless  => "find ${devenv::development} -name 'WebStorm*'",
+    unless  => "test -d ${home}",
     require => Wget::Fetch['webstorm'],
+  }
+
+  exec { 'mv webstorm' :
+    command => "mv /tmp/WebStorm* ${home}",
+    user    => $devenv::user,
+    unless  => "test -d ${home}",
+    require => Exec['untar webstorm'],
+  }
+
+  file { 'link webstorm' :
+    ensure  => link,
+    path    => "${devenv::development}/webstorm",
+    target  => $home,
+    owner   => $devenv::user,
+    group   => $devenv::user,
+    require => Exec['mv webstorm'],
   }
 
 }
