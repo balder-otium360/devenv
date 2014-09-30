@@ -38,6 +38,12 @@ class devenv::sts (
     require => Exec['mv sts'],
   }
 
+  devenv::desktopentry { 'sts' :
+    iconFile      => "${devenv::development}/sts/icon.xpm",
+    iconExtension => 'xpm',
+    require       => File['link sts'],
+  }
+
   package { 'libwebkitgtk-1.0-0' :
     ensure  => latest
   }
