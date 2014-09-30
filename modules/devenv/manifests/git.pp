@@ -72,6 +72,12 @@ class devenv::git(
       group   => $devenv::user,
       require => Exec['untar smartgithg'],
     }
+
+    devenv::desktopentry { 'smartgithg' :
+      iconFile      => "${devenv::development}/smartgithg/bin/smartgithg-128.png",
+      iconExtension => 'png',
+      require       => File['link smartgithg'],
+    }
   }
 
   if $github_ssh_keys {

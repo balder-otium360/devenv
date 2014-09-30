@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SmartGit/Hg <%= scope['devenv::git::smartgithg_version'] %>
+Version=1.0
+Type=Application
+Terminal=false
+Exec="<%= scope['devenv::development'] %>/smartgithg/bin/smartgithg.sh" %u
+Icon=smartgithg
+StartupNotify=true
+MimeType=x-scheme-handler/smartgit
+Categories=Development;RevisionControl
