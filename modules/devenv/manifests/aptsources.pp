@@ -47,13 +47,13 @@ class devenv::aptsources {
     key        => '7FAC5991',
     key_source => 'https://dl-ssl.google.com/linux/linux_signing_key.pub',
   }
-  apt::source { 'google_chrome' :
+  apt::source { 'google-chrome' :
     location    => 'http://dl.google.com/linux/chrome/deb',
     release     => 'stable',
     repos       => 'main',
     include_src => false,
   }
-  apt::source { 'google_talkplugin' :
+  apt::source { 'google-talkplugin' :
     location    => 'http://dl.google.com/linux/talkplugin/deb',
     release     => 'stable',
     repos       => 'main',
