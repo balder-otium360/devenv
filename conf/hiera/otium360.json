@@ -37,7 +37,7 @@
   "devenv::java::oracle_java8"        : true,
   "devenv::maven::version"            : "3.2.3",
   "devenv::mongodb::robomongo_version": "0.8.3-x86_64",
-  "devenv::nodejs::version"           : "v0.10.31",
+  "devenv::nodejs::version"           : "v0.10.32",
   "devenv::sts::version"              : "3.6.1.RELEASE",
   "devenv::vagrant::version"          : "1.6.5_x86_64",
   "devenv::virtualbox::version"       : "4.3",
