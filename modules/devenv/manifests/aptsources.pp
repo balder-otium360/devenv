@@ -82,4 +82,15 @@ class devenv::aptsources {
     include_src => false,
   }
 
+  apt::key { 'spotify' :
+    key        => '94558F59',
+    key_server => 'keyserver.ubuntu.com',
+  }
+  apt::source { 'spotify' :
+    location    => 'http://repository.spotify.com',
+    release     => 'stable',
+    repos       => 'non-free',
+    include_src => false,
+  }
+
 }
