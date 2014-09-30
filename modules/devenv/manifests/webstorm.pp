@@ -38,4 +38,10 @@ class devenv::webstorm (
     require => Exec['mv webstorm'],
   }
 
+  devenv::desktopentry { 'webstorm' :
+    iconFile      => "${devenv::development}/webstorm/bin/webide.png",
+    iconExtension => 'png',
+    require       => File['link sts'],
+  }
+
 }

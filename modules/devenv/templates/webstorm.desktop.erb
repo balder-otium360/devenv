@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=WebStorm <%= scope['devenv::webstorm::version'] %>
+Version=1.0
+Type=Application
+Terminal=false
+Exec=<%= scope['devenv::development'] %>/webstorm/bin/webstorm.sh
+Icon=webstorm
+Categories=Development;IDE
+Actions=New;
+
+[Desktop Action New]
+Name=New Instance
+Exec=<%= scope['devenv::development'] %>/webstorm/bin/webstorm.sh
