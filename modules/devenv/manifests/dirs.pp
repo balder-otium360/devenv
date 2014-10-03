@@ -15,4 +15,11 @@ class devenv::dirs {
     group  => $devenv::user,
   }
 
+  file { "${devenv::home}/.local/share/icons" :
+    ensure => directory,
+    mode   => '0700',
+    owner  => $devenv::user,
+    group  => $devenv::user,
+  }
+
 }
