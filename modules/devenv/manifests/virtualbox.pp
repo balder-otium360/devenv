@@ -3,8 +3,13 @@ class devenv::virtualbox (
   $version
 ) {
 
-  package { ["virtualbox-${version}", 'dkms'] :
-    ensure => latest
+  package { 'dkms' :
+    ensure => latest,
+  }
+
+  package { "virtualbox-${version}" :
+    ensure  => latest,
+    require => Package['dkms'],
   }
 
 }
