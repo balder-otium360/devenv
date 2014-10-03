@@ -98,7 +98,7 @@ class devenv::git(
     exec { 'github_keygen' :
       command     => "${github_keygen_home}/github-keygen ${github_user} -p ${github_ssh_pswd}",
       user        => $devenv::user,
-      environment => "HOME=${home}",
+      environment => "HOME=${devenv::home}",
       unless      => "test -f ${ssh_home}/id_${github_user}@github",
       require     => Vcsrepo[$github_keygen_home]
     }
