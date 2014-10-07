@@ -12,6 +12,7 @@
   "devenv::docker"        : true,
   "devenv::git"           : true,
   "devenv::git::smartgit" : true,
+  "devenv::idea"          : true,
   "devenv::java"          : true,
   "devenv::maven"         : true,
   "devenv::mongodb"       : true,
@@ -33,6 +34,7 @@
 
   "devenv::android::version"          : "r23.0.2-linux",
   "devenv::git::smartgit_version"     : "6_0_6",
+  "devenv::idea::version"             : "13.1.5",
   "devenv::java::oracle_java7"        : true,
   "devenv::java::oracle_java8"        : true,
   "devenv::maven::version"            : "3.2.3",

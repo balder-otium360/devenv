@@ -49,6 +49,7 @@ __otium360 devenv__ will install the following software on your machine:
     - Git-Flow
     - SmartGitHg
     - optional GitHub SSH setup
+  * IDEA 13
   * Java
     - Oracle JDK 7
     - Oracle JDK 8 (will be set as default)
@@ -65,7 +66,7 @@ __otium360 devenv__ will install the following software on your machine:
   * Spring Tool Suite (no tc-server, no Roo)
   * Vagrant
   * Virtual Box
-  * WebStorm
+  * WebStorm 8
   * utils
     - Chrome
     - Dropbox
@@ -94,6 +95,7 @@ All current customization is done via Hiera datasources, so it's centralized in 
   "devenv::compass"  : true,
   "devenv::docker"   : true,
   "devenv::git"      : true,
+  "devenv::idea"     : true,
   "devenv::java"     : true,
   "devenv::maven"    : true,
   "devenv::mongodb"  : true,
@@ -116,6 +118,7 @@ All current customization is done via Hiera datasources, so it's centralized in 
   // change software versions
   // you might need to tweek file names or download URLs in each class' Puppet (eg. modules/devenv/android.pp)
   "devenv::android::version"          : "r23.0.2-linux",
+  "devenv::idea::version"             : "13.1.5",
   "devenv::java::oracle_java7"        : true,
   "devenv::java::oracle_java8"        : true,
   "devenv::maven::version"            : "3.2.3",

@@ -13,6 +13,7 @@ class devenv(
   $compass,
   $docker,
   $git,
+  $idea,
   $java,
   $maven,
   $mongodb,
@@ -62,6 +63,7 @@ class devenv(
   notice(" *              Compass = ${compass}                                ")
   notice(" *               Docker = ${docker}                                 ")
   notice(" *         Git (+tools) = ${git}                                    ")
+  notice(" *                 IDEA = ${idea}                                   ")
   notice(" *                 Java = ${java}                                   ")
   notice(" *                Maven = ${maven}                                  ")
   notice(" *     MongoDB (+tools) = ${mongodb}                                ")
@@ -99,6 +101,9 @@ class devenv(
   }
   if $git {
     include devenv::git
+  }
+  if $idea {
+    include devenv::idea
   }
   if $java {
     include devenv::java
