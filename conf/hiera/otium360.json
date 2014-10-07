@@ -33,7 +33,7 @@
   "devenv::webstorm"      : true,
 
   "devenv::android::version"          : "r23.0.2-linux",
-  "devenv::git::smartgit_version"     : "6_0_6",
+  "devenv::git::smartgit_version"     : "6_0_7",
   "devenv::idea::version"             : "13.1.5",
   "devenv::java::oracle_java7"        : true,
   "devenv::java::oracle_java8"        : true,
