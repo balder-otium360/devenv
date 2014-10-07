@@ -6,7 +6,7 @@ class devenv::webstorm (
   $file    = "WebStorm-${version}"
   $dir     = $file
   $home    = "${devenv::development}/${dir}"
-  $tgz     = "WebStorm-${version}.tar.gz"
+  $tgz     = "${file}.tar.gz"
   $url     = "http://download-cf.jetbrains.com/webstorm/${tgz}"
 
   wget::fetch { 'webstorm':
