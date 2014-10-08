@@ -10,6 +10,7 @@ class devenv(
   $downloads,
   $company,
   $android,
+  $aws,
   $compass,
   $docker,
   $git,
@@ -60,6 +61,7 @@ class devenv(
   notice(' *        otium360 devenv Installed Software                     *  ')
   notice(' *****************************************************************  ')
   notice(" *          Android SDK = ${android}                                ")
+  notice(" *              AWS CLI = ${aws}                                    ")
   notice(" *              Compass = ${compass}                                ")
   notice(" *               Docker = ${docker}                                 ")
   notice(" *         Git (+tools) = ${git}                                    ")
@@ -92,6 +94,9 @@ class devenv(
 
   if $android {
     include devenv::android
+  }
+  if $aws {
+    include devenv::aws
   }
   if $compass {
     include devenv::compass

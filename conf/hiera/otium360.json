@@ -8,6 +8,7 @@
   "devenv::downloads"   : "%{hiera('devenv::home')}/Downloads",
 
   "devenv::android"       : true,
+  "devenv::aws"           : true,
   "devenv::compass"       : true,
   "devenv::docker"        : true,
   "devenv::git"           : true,
