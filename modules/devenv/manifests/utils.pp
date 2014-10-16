@@ -1,5 +1,6 @@
 # Install utilities
 class devenv::utils (
+  $ant,
   $chrome,
   $dropbox,
   $vim,
@@ -11,6 +12,12 @@ class devenv::utils (
 
   if $chrome {
     package { ['google-chrome-stable', 'google-talkplugin']:
+      ensure  => latest,
+    }
+  }
+
+  if $ant {
+    package { 'ant' :
       ensure  => latest,
     }
   }
