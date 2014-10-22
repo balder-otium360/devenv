@@ -6,8 +6,8 @@ class devenv::sts (
   $file    = "sts-${version}"
   $dir     = $file
   $home    = "${devenv::development}/${dir}"
-  $tgz     = "spring-tool-suite-${version}-e4.4-linux-gtk-x86_64.tar.gz"
-  $url     = "http://download.springsource.com/release/STS/3.6.1/dist/e4.4/${tgz}"
+  $tgz     = "spring-tool-suite-${version}-e4.4.1-linux-gtk-x86_64.tar.gz"
+  $url     = "http://download.springsource.com/release/STS/3.6.2/dist/e4.4/${tgz}"
 
   wget::fetch { 'sts':
     source      => $url,

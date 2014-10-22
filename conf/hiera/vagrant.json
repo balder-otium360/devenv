@@ -45,7 +45,7 @@
   "devenv::sts::version"              : "3.6.2.RELEASE",
   "devenv::vagrant::version"          : "1.6.5_x86_64",
   "devenv::virtualbox::version"       : "4.3",
-  "devenv::webstorm::version"         : "8.0.4",
+  "devenv::webstorm::version"         : "9.0",
 
   "devenv::git::user_email"     : "vagrant@%{hiera('devenv::company')}.com",
   "devenv::git::user_name"      : "vagrant",
