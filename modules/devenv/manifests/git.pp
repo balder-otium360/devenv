@@ -46,37 +46,37 @@ class devenv::git(
 
   if $smartgit {
 
-    $smartgithg_file = "smartgithg-${smartgit_version}"
-    $smartgithg_dir  = "${devenv::development}/${smartgithg_file}"
-    $smartgithg_tgz  = "smartgithg-generic-${smartgit_version}.tar.gz"
-    $smartgithg_url  = "http://www.syntevo.com/download/smartgithg/${smartgithg_tgz}"
+    $smartgit_file = "smartgit-${smartgit_version}"
+    $smartgit_dir  = "${devenv::development}/smartgit"
+    $smartgit_tgz  = "smartgit-generic-${smartgit_version}.tar.gz"
+    $smartgit_url  = "http://www.syntevo.com/downloads/smartgit/${smartgit_tgz}"
 
-    wget::fetch { 'smartgithg':
-      source      => $smartgithg_url,
-      destination => "${devenv::downloads}/${smartgithg_tgz}",
+    wget::fetch { 'smartgit':
+      source      => $smartgit_url,
+      destination => "${devenv::downloads}/${smartgit_tgz}",
       execuser    => $devenv::user,
     }
 
-    exec { 'untar smartgithg' :
-      command => "tar xzf ${devenv::downloads}/${smartgithg_tgz} -C ${devenv::development}",
+    exec { 'untar smartgit' :
+      command => "tar xzf ${devenv::downloads}/${smartgit_tgz} -C ${devenv::development}",
       user    => $devenv::user,
-      unless  => "test -d ${smartgithg_dir}",
-      require => Wget::Fetch['smartgithg'],
+      unless  => "test -d ${smartgit_dir}",
+      require => Wget::Fetch['smartgit'],
     }
 
-    file { 'link smartgithg' :
-      ensure  => link,
-      path    => "${devenv::development}/smartgithg",
-      target  => $smartgithg_dir,
-      owner   => $devenv::user,
-      group   => $devenv::user,
-      require => Exec['untar smartgithg'],
-    }
+#   file { 'link smartgit' :
+#     ensure  => link,
+#     path    => "${devenv::development}/smartgit",
+#     target  => $smartgit_dir,
+#     owner   => $devenv::user,
+#     group   => $devenv::user,
+#     require => Exec['untar smartgit'],
+#   }
 
-    devenv::desktopentry { 'smartgithg' :
-      iconFile      => "${devenv::development}/smartgithg/bin/smartgithg-128.png",
+    devenv::desktopentry { 'smartgit' :
+      iconFile      => "${devenv::development}/smartgit/bin/smartgit-128.png",
       iconExtension => 'png',
-      require       => File['link smartgithg'],
+#     require       => File['link smartgit'],
     }
   }
 

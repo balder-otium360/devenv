@@ -84,9 +84,9 @@ class devenv(
     before => Stage['main']
   }
 
-  class { 'devenv::aptsources' :
-    stage => preconfigure
-  }
+  #class { 'devenv::aptsources' :
+  #  stage => preconfigure
+  #}
 
   class { 'devenv::dirs' :
     stage => preconfigure

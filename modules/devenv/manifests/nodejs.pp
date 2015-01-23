@@ -1,7 +1,9 @@
 # Install NodeJS and global NPM modules
 # TODO use nvm https://github.com/creationix/nvm
 class devenv::nodejs (
-  $version = 'v0.10.35'
+  $version,
+  $nvm,
+  $nvm_version
 ) {
 
   $file    = "node-${version}-linux-x64"
@@ -52,5 +54,30 @@ class devenv::nodejs (
   devenv::npm { 'cordova' : }
   devenv::npm { 'ionic' : }
   devenv::npm { 'yo' : }
+
+  if $nvm {
+
+    $nvm_install = 'nvm-install.sh'
+    $nvm_dir = "${devenv::home}/.nvm"
+
+    wget::fetch { 'nvm':
+      source      => "https://raw.githubusercontent.com/creationix/nvm/${nvm_version}/install.sh",
+      destination => "${devenv::downloads}/${nvm_install}",
+      execuser    => $devenv::user,
+    }
+    file { "${devenv::downloads}/${nvm_install}" :
+      ensure => file,
+      mode   => '0744',
+      owner  => $devenv::user,
+      group  => $devenv::user,
+    }
+    exec { 'install nvm' :
+      command     => "${devenv::downloads}/${nvm_install}",
+      user        => $devenv::user,
+      environment => "HOME=${devenv::home}",
+      unless      => "test -d ${nvm_dir}",
+      require     => File["${devenv::downloads}/${nvm_install}"],
+    }
+  }
 
 }
