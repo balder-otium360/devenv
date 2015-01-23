@@ -1,6 +1,7 @@
 # Install NodeJS and global NPM modules
+# TODO use nvm https://github.com/creationix/nvm
 class devenv::nodejs (
-  $version = 'v0.10.31'
+  $version = 'v0.10.35'
 ) {
 
   $file    = "node-${version}-linux-x64"
