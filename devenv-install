@@ -1,0 +1,250 @@
+#!/bin/bash
+set -e
+
+sudo echo ""
+
+red='\e[0;31m'
+green='\e[0;32m'
+NC='\e[0m' # No Color
+
+DEVELOPMENT="$HOME/development"
+DOWNLOADS="$HOME/Downloads"
+
+mkdir -p $DEVELOPMENT
+mkdir -p $DOWNLOADS
+
+TIMESTAMP=$( date +%s )
+cp $HOME/.profile $HOME/.profile_bk_$TIMESTAMP
+
+echo -e "\n${green}Setting APT repositories${NC}"
+#sudo apt-get -y -qq update
+#sudo apt-get -y dist-upgrade
+
+if [ ! -f /etc/apt/sources.list.d/git-core-ppa-trusty.list ]
+then
+  echo -e "\n${green}* Add Git PPA repository${NC}"
+  sudo add-apt-repository -y ppa:git-core/ppa
+fi
+
+if [ ! -f /etc/apt/sources.list.d/webupd8team-java-trusty.list ]
+then
+  echo -e "\n${green}* Add Java PPA repository${NC}"
+  sudo add-apt-repository -y ppa:webupd8team/java
+fi
+
+if [ ! -f /etc/apt/sources.list.d/webupd8team-sublime-text-3-trusty.list ]
+then
+  echo -e "\n${green}* Add SublimeText3 PPA repository${NC}"
+  sudo add-apt-repository -y ppa:webupd8team/sublime-text-3
+fi
+
+if [ ! -f /etc/apt/sources.list.d/virtualbox.list ]
+then
+  echo -e "\n${green}* Add VirtualBox repository${NC}"
+  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+  echo 'deb http://download.virtualbox.org/virtualbox/debian trusty contrib' | sudo tee /etc/apt/sources.list.d/virtualbox.list
+fi
+
+if [ ! -f /etc/apt/sources.list.d/mongodb.list ]
+then
+  echo -e "\n${green}* Add Mongo repository${NC}"
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+fi
+
+if [ ! -f /etc/apt/sources.list.d/nginx.list ]
+then
+  echo -e "\n${green}* Add nginx repository${NC}"
+  wget -q http://nginx.org/keys/nginx_signing.key -O- | sudo apt-key add -
+  echo 'deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx' | sudo tee /etc/apt/sources.list.d/nginx.list
+  echo 'deb-src http://nginx.org/packages/mainline/ubuntu/ trusty nginx' | sudo tee -a /etc/apt/sources.list.d/nginx.list
+fi
+
+if [ ! -f /etc/apt/sources.list.d/docker.list ]
+then
+  echo -e "\n${green}* Add Docker repository${NC}"
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv A88D21E9
+  echo 'deb https://get.docker.io/ubuntu docker main' | sudo tee /etc/apt/sources.list.d/docker.list
+fi
+
+if [ ! -f /etc/apt/sources.list.d/spotify.list ]
+then
+  echo -e "\n${green}* Add Spotify repository${NC}"
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 94558F59
+  echo 'deb http://repository.spotify.com stable non-free' | sudo tee /etc/apt/sources.list.d/spotify.list
+fi
+
+
+echo -e "\n${green}Updating APT${NC}"
+sudo apt-get update
+
+
+echo -e "\n${green}Installing Software${NC}"
+
+if ! command -v javac > /dev/null
+then
+  echo -e "\n${green}* JDK${NC}"
+  sudo apt-get -y install oracle-java7-installer oracle-java8-installer oracle-java7-set-default
+fi
+
+if ! command -v git > /dev/null
+then
+  echo -e "\n${green}* Git${NC}"
+  sudo apt-get -y install git git-flow
+fi
+
+if ! command -v subl > /dev/null
+then
+  echo -e "\n${green}* SublimeText3${NC}"
+  sudo apt-get -y install sublime-text-installer
+fi
+
+if ! command -v virtualbox > /dev/null
+then
+  echo -e "\n${green}* VirtualBox${NC}"
+  sudo apt-get -y install dkms virtualbox-4.3
+fi
+
+if ! command -v docker > /dev/null
+then
+  echo -e "\n${green}* Docker${NC}"
+  sudo apt-get -y install lxc-docker
+  sudo usermod -a -G docker $USER
+fi
+
+if ! command -v mongo > /dev/null
+then
+  echo -e "\n${green}* Mongo${NC}"
+  sudo apt-get -y install mongodb-org
+  wget -P $DOWNLOADS http://robomongo.org/files/linux/robomongo-0.8.4-x86_64.deb
+  sudo dpkg -i $DOWNLOADS/robomongo-0.8.4-x86_64.deb
+fi
+
+if ! command -v ruby > /dev/null
+then
+  echo -e "\n${green}* Ruby${NC}"
+  sudo apt-get -y install ruby-full
+  # if Compass fails to install try this
+  #sudo apt-get -y install ruby1.9.1-full
+fi
+
+if ! command -v compass > /dev/null
+then
+  echo -e "\n${green}* Compass${NC}"
+  sudo gem install compass
+fi
+
+if ! command -v mvn > /dev/null
+then
+  echo -e "\n${green}* Maven${NC}"
+  wget -P $DOWNLOADS http://ftp.cixug.es/apache/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
+  tar zxf $DOWNLOADS/apache-maven-3.2.5-bin.tar.gz -C $DEVELOPMENT
+  ln -s $DEVELOPMENT/apache-maven-3.2.5 $DEVELOPMENT/apache-maven-3
+  echo "export M2_HOME=\"$DEVELOPMENT/apache-maven-3\"" | tee -a $HOME/.profile
+  echo 'export M2="$M2_HOME/bin"' | tee -a $HOME/.profile
+  echo 'export PATH="$M2:$PATH"' | tee -a $HOME/.profile
+  echo 'export MAVEN_OPTS="-Xmx512m"' | tee -a $HOME/.profile
+fi
+
+if ! command -v node > /dev/null
+then
+  echo -e "\n${green}* Node${NC}"
+  wget -P $DOWNLOADS http://nodejs.org/dist/v0.12.0/node-v0.12.0-linux-x64.tar.gz
+  tar zxf $DOWNLOADS/node-v0.12.0-linux-x64.tar.gz -C $DEVELOPMENT
+  ln -s $DEVELOPMENT/node-v0.12.0-linux-x64 $DEVELOPMENT/node
+  echo "export NODE_HOME=\"$DEVELOPMENT/node\"" | tee -a $HOME/.profile
+  echo 'export PATH="$NODE_HOME/bin:$PATH"' | tee -a $HOME/.profile
+  export NODE_HOME=\"$DEVELOPMENT/node\"
+  export PATH="$NODE_HOME/bin:$PATH"
+fi
+
+if ! command -v bower > /dev/null
+then
+  echo -e "\n${green}* Bower${NC}"
+  $DEVELOPMENT/node/bin/npm install -g bower
+fi
+
+if ! command -v grunt > /dev/null
+then
+  echo -e "\n${green}* Grunt${NC}"
+  $DEVELOPMENT/node/bin/npm install -g grunt-cli
+fi
+
+if ! command -v cordova > /dev/null
+then
+  echo -e "\n${green}* Cordova${NC}"
+  $DEVELOPMENT/node/bin/npm install -g cordova
+fi
+
+if ! command -v ionic > /dev/null
+then
+  echo -e "\n${green}* Ionic${NC}"
+  $DEVELOPMENT/node/bin/npm install -g ionic
+fi
+
+# needs reboot after NodeJS install
+#if ! command -v yo > /dev/null
+#then
+#  echo -e "\n${green}* Yeoman"
+#  $DEVELOPMENT/node/bin/npm install -g yo
+#fi
+
+if ! command -v nginx > /dev/null
+then
+  echo -e "\n${green}* nginx${NC}"
+  sudo apt-get -y install nginx
+fi
+
+if ! command -v vagrant > /dev/null
+then
+  echo -e "\n${green}* Vagrant${NC}"
+  wget -P $DOWNLOADS https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
+  sudo dpkg -i $DOWNLOADS/vagrant_1.7.2_x86_64.deb
+fi
+
+if ! command -v spotify > /dev/null
+then
+  echo -e "\n${green}* Spotify${NC}"
+  sudo apt-get install -y spotify-client
+fi
+
+if ! command -v android > /dev/null
+then
+  echo -e "\n${green}* Android SDK${NC}"
+  wget -P $DOWNLOADS http://dl.google.com/android/android-sdk_r24.1.2-linux.tgz
+  tar zxf $DOWNLOADS/android-sdk_r24.1.2-linux.tgz -C $DEVELOPMENT
+  echo "export ANDROID_SDK_HOME=\"$DEVELOPMENT/android-sdk-linux\"" | tee -a $HOME/.profile
+  echo 'export PATH="$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$PATH"' | tee -a $HOME/.profile
+fi
+
+if ! command -v aws > /dev/null
+then
+  echo -e "\n${green}* AWS CLI${NC}"
+  wget -P $DOWNLOADS https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+  unzip -o $DOWNLOADS/awscli-bundle.zip -d $DOWNLOADS
+  $DOWNLOADS/awscli-bundle/install -i $DEVELOPMENT/awscli -b $HOME/bin/aws
+  # Ubuntu/Mint automatically add $HOME/bin to $PATH if it exists
+  #echo "export PATH=\"$HOME/bin:\$PATH\"" | tee -a $HOME/.profile
+  echo "complete -C '$DEVELOPMENT/awscli/bin/aws_completer' aws" | tee -a $HOME/.profile
+  rm -Rf $DOWNLOADS/awscli-bundle
+fi
+
+if ! command -v vim > /dev/null
+then
+  echo -e "\n${green}* vim${NC}"
+  sudo apt-get install -y vim
+fi
+
+if ! command -v unrar > /dev/null
+then
+  echo -e "\n${green}* unrar${NC}"
+  sudo apt-get install -y unrar
+fi
+
+if ! command -v ant > /dev/null
+then
+  echo -e "\n${green}* ant${NC}"
+  sudo apt-get install -y ant
+fi
+
+echo -e "\nRestart your system to apply all changes!!"
