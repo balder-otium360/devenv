@@ -108,7 +108,7 @@ fi
 if ! command -v docker > /dev/null
 then
   echo -e "\n${green}* Docker${NC}"
-  sudo apt-get -y install lxc-docker
+  sudo apt-get -y install lxc-docker apparmor
   sudo usermod -a -G docker $USER
 fi
 
